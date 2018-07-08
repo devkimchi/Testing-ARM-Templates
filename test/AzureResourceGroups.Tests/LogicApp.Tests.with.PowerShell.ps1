@@ -4,8 +4,7 @@
 
 Param(
     [string] [Parameter(Mandatory=$true)] $ResourceGroupName,
-    [string] [Parameter(Mandatory=$true)] $TemplateFile,
-    [hashtable] [Parameter(Mandatory=$true)] $Parameters
+    [string] [Parameter(Mandatory=$true)] $SrcDirectory
 )
 
 Describe "Logic App Deployment Tests" {
@@ -24,7 +23,7 @@ Describe "Logic App Deployment Tests" {
         try {
             $output = Test-AzureRmResourceGroupDeployment `
                           -ResourceGroupName $ResourceGroupName `
-                          -TemplateFile $TemplateFile `
+                          -TemplateFile $SrcDirectory\LogicApp.json `
                           -logicAppName1 $null `
                           -logicAppName2 $null `
                           -ErrorAction Stop `
@@ -44,8 +43,8 @@ Describe "Logic App Deployment Tests" {
     Context "When Logic App deployed with parameters" {
         $output = Test-AzureRmResourceGroupDeployment `
                       -ResourceGroupName $ResourceGroupName `
-                      -TemplateFile $TemplateFile `
-                      -TemplateParameterObject $Parameters `
+                      -TemplateFile $SrcDirectory\LogicApp.json `
+                      -TemplateParameterFile $SrcDirectory\LogicApp.parameters.json `
                       -ErrorAction Stop `
                        5>&1
         $result = (($output[32] -split "Body:")[1] | ConvertFrom-Json).properties
@@ -55,7 +54,7 @@ Describe "Logic App Deployment Tests" {
         }
 
         It "Should have name of" {
-            $expected = $Parameters.LogicAppName1 + "-" + $Parameters.LogicAppName2
+            $expected = "log-app"
             $resource = $result.validatedResources[0]
 
             $resource.name | Should -Be $expected
