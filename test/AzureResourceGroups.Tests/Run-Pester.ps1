@@ -9,7 +9,7 @@ Param(
     [string] [Parameter(Mandatory=$true)] $OutputDirectory,
     [string] [Parameter(Mandatory=$true)] $CodeCoverageOutputDirectory,
     [string] [Parameter(Mandatory=$true)] $Username,
-    [SecureString] [Parameter(Mandatory=$true)] $Password,
+    [string] [Parameter(Mandatory=$true)] $Password,
     [string] [Parameter(Mandatory=$true)] $TenantId
 )
 

@@ -6,15 +6,14 @@ Param(
     [string] [Parameter(Mandatory=$true)] $ResourceGroupName,
     [string] [Parameter(Mandatory=$true)] $SrcDirectory,
     [string] [Parameter(Mandatory=$true)] $Username,
-    [SecureString] [Parameter(Mandatory=$true)] $Password,
+    [string] [Parameter(Mandatory=$true)] $Password,
     [string] [Parameter(Mandatory=$true)] $TenantId
 )
 
 Describe "Logic App Deployment Tests" {
     # Init
     BeforeAll {
-        $plain = (New-Object PSCredential "user", $secured).GetNetworkCredential().Password
-        az login --service-principal -u $Username -p $plain -t $TenantId
+        az login --service-principal -u $Username -p $Password -t $TenantId
     }
 
     # Teardown
