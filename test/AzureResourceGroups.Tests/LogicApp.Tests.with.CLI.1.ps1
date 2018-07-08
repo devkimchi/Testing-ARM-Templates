@@ -8,7 +8,7 @@ Param(
     [string] [Parameter(Mandatory=$true)] $TemplateParameterFile,
     [hashtable] [Parameter(Mandatory=$true)] $Parameters,
     [string] [Parameter(Mandatory=$true)] $Username,
-    [securestring] [Parameter(Mandatory=$true)] $Password,
+    [string] [Parameter(Mandatory=$true)] $Password,
     [string] [Parameter(Mandatory=$true)] $TenantId
 )
 
