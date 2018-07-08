@@ -15,7 +15,7 @@ Param(
 
 $segment = $TestFilePath.Split("\")
 $testFile = $segment[$segment.Length - 1].Replace(".ps1", "");
-$parameters = @{ $ResourceGroupName = $ResourceGroupName; SrcDirectory = $SrcDirectory; Username = $Username; Password = $Password; TenantId = $TenantId }
+$parameters = @{ ResourceGroupName = $ResourceGroupName; SrcDirectory = $SrcDirectory; Username = $Username; Password = $Password; TenantId = $TenantId }
 $script = @{ Path = $TestFilePath; Parameters = $parameters }
 
 Invoke-Pester -Script $script `
