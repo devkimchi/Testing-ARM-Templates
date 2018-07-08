@@ -4,18 +4,29 @@
 
 Param(
     [string] [Parameter(Mandatory=$true)] $ResourceGroupName,
-    [string] [Parameter(Mandatory=$true)] $TemplateFile,
-    [string] [Parameter(Mandatory=$true)] $TemplateParameterFile,
-    [hashtable] [Parameter(Mandatory=$true)] $Parameters
+    [string] [Parameter(Mandatory=$true)] $SrcDirectory,
+    [string] [Parameter(Mandatory=$true)] $Username,
+    [SecureString] [Parameter(Mandatory=$true)] $Password,
+    [string] [Parameter(Mandatory=$true)] $TenantId
 )
 
 Describe "Logic App Deployment Tests" {
+    # Init
+    BeforeAll {
+        $plain = (New-Object PSCredential "user", $secured).GetNetworkCredential().Password
+        az login --service-principal -u $Username -p $plain -t $TenantId
+    }
+
+    # Teardown
+    AfterAll {
+    }
+
     # Tests whether the cmdlet returns value or not.
     Context "When Logic App deployed with parameters" {
         $output = az group deployment validate `
             -g $ResourceGroupName `
-            --template-file $TemplateFile `
-            --parameters `@$TemplateParameterFile `
+            --template-file $SrcDirectory\LogicApp.json `
+            --parameters `@$SrcDirectory\LogicApp.parameters.json `
             | ConvertFrom-Json
         
         $result = $output.properties
@@ -25,7 +36,7 @@ Describe "Logic App Deployment Tests" {
         }
 
         It "Should have name of" {
-            $expected = $Parameters.LogicAppName1 + "-" + $Parameters.LogicAppName2
+            $expected = "log-app"
             $resource = $result.validatedResources[0]
 
             $resource.name | Should -Be $expected
