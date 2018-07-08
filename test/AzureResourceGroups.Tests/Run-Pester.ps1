@@ -20,5 +20,3 @@ $parameters = @{ ResourceGroupName = $ResourceGroupName; SrcDirectory = $SrcDire
 $script = @{ Path = $TestFilePath; Parameters = $parameters }
 
 Invoke-Pester -Script $script -OutputFile $outputFile -OutputFormat NUnitXml
-
-Write-Host "TestResult has been stored at $outputFile"
