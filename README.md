@@ -9,7 +9,7 @@ This provides sample codes for testing ARM templates with [Pester](https://githu
   * [ARM 템플릿 테스트하기](https://blog.aliencube.org/#)
 * English:
   * [Testing ARM Templates with Pester #1 - PowerShell](https://blog.mexia.com.au/testing-arm-templates-with-pester)
-  * [Testing ARM Templates with Pester #2 - Azure CLI](https://blog.mexia.com.au/#)
+  * [Testing ARM Templates with Pester #2 - Azure CLI](https://blog.mexia.com.au/testing-arm-templates-with-pester-2)
 
 
 ## Contribution ##
